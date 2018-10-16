@@ -5,3 +5,4 @@ This is interface-test to used for interface testing
 
 - 1、原有平台是Flask框架，转化为Django框架使用接口测试平台
 - 2、补充对url输入框异常信息处理的提示信息
+- 3、此项目纯属个人练手
