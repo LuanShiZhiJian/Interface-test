@@ -1,0 +1,52 @@
+{% load static %}
+<!doctype html>
+<html lang="zh">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/1.css' %}">
+    <title>模拟接口测试平台</title>
+</head>
+<body>
+<div class="container">
+    <h3 class="text text-center main-title">模拟接口测试平台</h3>
+    <form action="{% url 'index' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" name="url" placeholder="请输入URL" class="form-control" autofocus>
+            {% if error_null %}
+                {{ error_null }}
+            {% endif %}
+        </div><br>
+        <div class="form-group">
+            <input type="submit" name="submit" value="确定" class="btn btn-primary"><br>
+        </div>
+    </form><hr>
+
+    {% if interface_url %}
+        <p>接口地址: {{ interface_url.url }}</p>
+        <p>状态码: {{ interface_url.status_code }}</p><hr>
+        <p>Headers</p>
+        {% for key,value in interface_url.headers.items %}
+            <p><pre><code>{{key}}: {{value}}</code></pre></p>
+        {% endfor %}<hr>
+        <p>Body</p>
+        {% for key1,value1 in interface_text.items %}
+            <p><pre><code>{{ key1 }}: {{ value1 }}</code></pre><p>
+        {% endfor %}
+    {% else %}
+        <p>没有响应</p>
+    {% endif%}
+</div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
